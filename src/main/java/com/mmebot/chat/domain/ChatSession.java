@@ -4,6 +4,7 @@ import com.mmebot.diary.domain.Diary;
 import com.mmebot.bot.domain.Bot;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.OffsetDateTime;
 
@@ -31,7 +32,7 @@ public class ChatSession {
     private Bot bot;
 
     @Column(length = 32, nullable = false)
-    private String status;        // 'pending','active',...
+    private ChatSessionStatus status;        // 'pending','active',...
 
     @Column(nullable = false)
     private Integer sendCount = 0;
@@ -39,7 +40,10 @@ public class ChatSession {
     @Column(columnDefinition = "text")
     private String summary;
 
-    @Column(nullable = false)
-    private OffsetDateTime startedAt = OffsetDateTime.now();
+    @CreationTimestamp
+    @Column(columnDefinition = "timestamptz",
+            nullable = false,
+            updatable = false)
+    private OffsetDateTime createdAt;
     private OffsetDateTime completedAt;
 }
