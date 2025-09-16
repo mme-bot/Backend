@@ -15,8 +15,8 @@ import lombok.*;
 public class DiaryChunkEmbedding {
 
     @Id
-    @Column(name = "chunk_id")
-    private Long chunkId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
